@@ -1,8 +1,12 @@
 import axios from 'axios';
 
+// Set VITE_API_BASE_URL to the deployed API URL, including /api.
+// For example: https://your-backend.example.com/api
+const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:5259/api').replace(/\/+$/, '');
+
 // 1. Create an Axios instance with the backend base URL
 const api = axios.create({
-  baseURL: 'http://localhost:5259/api',
+  baseURL: apiBaseUrl,
   headers: {
     'Content-Type': 'application/json',
   },
