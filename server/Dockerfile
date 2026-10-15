@@ -8,7 +8,7 @@ RUN dotnet restore
 
 COPY . .
 
-RUN dotnet publish “server.csproj” -c Release -o /app/publish -no-restore /p:UseAppHost=false
+RUN dotnet publish server.csproj -c Release -o /app/publish --no-restore /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0-noble AS final
 
@@ -20,4 +20,4 @@ ENV ASPNETCORE_URLS=http://+:10000
 
 EXPOSE 10000
 
-ENTRYPOINT [“dotnet”, “server.dll”]
+ENTRYPOINT ["dotnet", "server.dll"]
