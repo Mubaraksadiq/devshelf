@@ -23,12 +23,14 @@ export default function RegisterPage() {
       navigate('/login');
     } catch (err) {
       // Backend returns { error: "Email already taken" } on 400
+      const responseData = err.response?.data;
       const serverMessage =
-        err.response?.data?.error ||
-        (err.request
-          ? 'Could not reach the DevShelf API. Make sure the backend is running at http://localhost:5259.'
-          : err.message) ||
-        'Registration failed. Please check your inputs.';
+        responseData?.error ||
+        responseData?.message ||
+        responseData?.title ||
+        (err.response
+          ? `Registration failed (HTTP ${err.response.status}). Please check the form and try again.`
+          : 'Could not reach the DevShelf API. Make sure it is running at the configured API URL.');
       setError(serverMessage);
     } finally {
       setLoading(false);
